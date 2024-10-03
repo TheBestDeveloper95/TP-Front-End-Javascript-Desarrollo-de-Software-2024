@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabajo Practico 3 JavaScript</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0); /* Color de fondo */
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: white; /* Color de las estrellas */
+            opacity: 0.8;
+            animation: twinkle 1.5s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Número de estrellas
+        const numberOfStars = 1500;
+
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+
+            // Posición aleatoria para cada estrella
+            star.style.width = Math.random() * 3 + 'px'; // Tamaño aleatorio
+            star.style.height = star.style.width; // Altura igual al ancho
+            star.style.top = Math.random() * 100 + 'vh'; // Posición vertical
+            star.style.left = Math.random() * 100 + 'vw'; // Posición horizontal
+
+            document.body.appendChild(star);
+        }
+    </script>
+
+    <div class="content">
+        <h1>Selecciona una opción para ejecutar el archivo JavaScript correspondiente</h1>
+
+        <!-- Menú desplegable con 12 opciones -->
+        <label for="opciones">Elige una opción:</label>
+        <select id="opciones">
+            <option value="1">c = a + b</option>
+            <option value="2">Pide nombre y saluda</option>
+            <option value="3">El mayor de 3 números</option>
+            <option value="4">Es Par o Impar</option>
+            <option value="5">Variable de diez a cero</option>
+            <option value="6">ingrese un número mayor a 100</option>
+            <option value="7">Función es Par</option>
+            <option value="8">Función de Celsius a Fahrenheit</option>
+            <option value="9">Objeto Persona</option>
+            <option value="10">Objeto Libro</option>
+            <option value="11">Array x 2</option>
+            <option value="12">Array pares</option>
+        </select>
+
+        <!-- Botón para ejecutar la opción seleccionada -->
+        <button onclick="ejecutarOpcion()">Ejecutar Opción</button>
+        <h2>"Abre la consola con Ctrl+Shift+J" para ver las respuestas</h2>
+
+        <script>
+            function ejecutarOpcion() {
+                const seleccion = document.getElementById('opciones').value; // Obtener el valor seleccionado
+
+                switch (parseInt(seleccion)) {
+                    case 1:
+                        mostrarOpcion(1, 'Ejercicio2.js');
+                        break;
+                    case 2:
+                        mostrarOpcion(2, 'Ejercicio3.js');
+                        break;
+                    case 3:
+                        mostrarOpcion(3, 'Ejercicio3Operadores.js');
+                        break;
+                    case 4:
+                        mostrarOpcion(4, 'Ejercicio3ParOImpar.js');
+                        break;
+                    case 5:
+                        mostrarOpcion(5, 'Ejercicio3WhileBucle.js');
+                        break;
+                    case 6:
+                        mostrarOpcion(6, 'Ejercicio3WhileDoBucle.js');
+                        break;
+                    case 7:
+                        mostrarOpcion(7, 'EjercicioFuncEsPar.js');
+                        break;
+                    case 8:
+                        mostrarOpcion(8, 'EjercicioFuncFarehrenheit.js');
+                        break;
+                    case 9:
+                        mostrarOpcion(9, 'EjercicioObjeto1Persona.js');
+                        break;
+                    case 10:
+                        mostrarOpcion(10, 'EjercicioObjeto2Libro.js');
+                        break;
+                    case 11:
+                        mostrarOpcion(11, 'EjerciciopArrays.js');
+                        break;
+                    case 12:
+                        mostrarOpcion(12, 'EjerciciopArraysPares.js');
+                        break;
+                    default:
+                        console.log('Opción no válida');
+                }
+            }
+
+            // Función que carga y muestra el archivo JS correspondiente
+            function mostrarOpcion(numero, archivo) {
+                alert(`Has seleccionado la opción ${numero}. Ejecutando ${archivo}`);
+                cargarArchivoJS(archivo);
+            }
+
+            function cargarArchivoJS(nombreArchivo) {
+                const script = document.createElement('script');
+                script.src = nombreArchivo;
+                script.type = 'text/javascript';
+                document.body.appendChild(script);
+                console.log(`Se ha cargado: ${nombreArchivo}`);
+            }
+        </script>
+
+        <br>--------------------------------------------------------------------<br><br><br>
+
+        <h1>Introducción al DOM</h1>
+        <h2>Ejercicio 1:</h2>
+        <p>Este es el primer párrafo.</p>
+        <p>Este es el segundo párrafo.</p>
+        <p>Este es el tercer párrafo.</p>
+
+        <button onclick="cambiarColor()">Cambiar color a azul</button>
+
+        <script>
+            function cambiarColor() {
+                let parrafos = document.querySelectorAll('p');
+                parrafos.forEach(p => {
+                    p.style.color = 'blue';
+                });
+            }
+        </script>
+
+        <br>--------------------------------------------------------------------<br><br><br>
+        <h2>Ejercicio 2:</h2>
+
+        <form onsubmit="mostrarAlerta(event)">
+            <label for="texto">Ingresa un texto:</label>
+            <input type="text" id="texto">
+            <button type="submit">Mostrar Alerta</button>
+        </form>
+
+        <script>
+            function mostrarAlerta(event) {
+                event.preventDefault();  // Evita que el formulario se envíe
+                let texto = document.getElementById('texto').value;
+                alert(`Has ingresado: ${texto}`);
+            }
+        </script>
+        <br>--------------------------------------------------------------------<br><br>
+        <h1>Eventos DOM</h1>
+        <h2>Ejercicio 1:</h2>
+
+        <ul id="miLista">
+            <li>Elemento 1</li>
+            <li>Elemento 2</li>
+            <li>Elemento 3</li>
+            <li>Elemento 4</li>
+        </ul>
+
+        <script>
+            let elementos = document.querySelectorAll('#miLista li');
+
+            elementos.forEach((elemento) => {
+                elemento.addEventListener('click', () => {
+                    console.log(elemento.textContent);
+                });
+            });
+        </script>
+
+        <br>--------------------------------------------------------------------<br><br>
+
+        <h2>Ejercicio 2: Campo de texto y botones</h2>
+
+        <input type="text" id="miInput" placeholder="Ingresa algo">
+        <button id="deshabilitar">Deshabilitar Campo</button>
+        <button id="habilitar">Habilitar Campo</button>
+
+        <script>
+            let input = document.getElementById('miInput');
+            let btnDeshabilitar = document.getElementById('deshabilitar');
+            let btnHabilitar = document.getElementById('habilitar');
+
+            btnDeshabilitar.addEventListener('click', () => {
+                input.disabled = true;
+            });
+
+            btnHabilitar.addEventListener('click', () => {
+                input.disabled = false;
+            });
+        </script>
+        <br><br><br>--------------------------------------------------------------------<br><br>
+
+        <h1>Local Storage</h1>
+        <h2>Ejercicio 1:</h2>
+
+        <form id="correoForm">
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" placeholder="example@gmail.com">
+            <button type="submit">Guardar Correo</button>
+        </form>
+
+        <p id="correoGuardado"></p>
+        <button id="eliminarCorreo">Eliminar Correo Guardado</button>
+
+        <script>
+            const correoInput = document.getElementById('correo');
+            const correoGuardado = document.getElementById('correoGuardado');
+            const eliminarCorreoBtn = document.getElementById('eliminarCorreo');
+
+            // Mostrar el correo guardado al cargar la página
+            document.addEventListener('DOMContentLoaded', () => {
+                const correo = localStorage.getItem('correo');
+                if (correo) {
+                    correoGuardado.textContent = `Correo guardado: ${correo}`;
+                }
+            });
+
+  // Guardar el correo cuando se envía el formulario
+  document.getElementById('correoForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const correo = correoInput.value;
+    localStorage.setItem('correo', correo);
+    correoGuardado.textContent = `Correo guardado: ${correo}`;
+    correoInput.value = ''; // Limpiar el campo de texto
+  });
+
+  // Eliminar el correo guardado
+  eliminarCorreoBtn.addEventListener('click', () => {
+    localStorage.removeItem('correo');
+    correoGuardado.textContent = '';
+  });
+</script>
+
+</body>
+</html>
